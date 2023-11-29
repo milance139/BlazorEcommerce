@@ -54,7 +54,8 @@ namespace BlazorEcommerce.Server.Data
                     Title = "The Hunger Games",
                     Description = "The Hunger Games is a series of young adult dystopian novels written by American author Suzanne Collins. The first three novels are part of a trilogy following teenage protagonist Katniss Everdeen, and the fourth book is a prequel set 64 years before the original.",
                     ImageURL = "https://upload.wikimedia.org/wikipedia/en/thumb/3/39/The_Hunger_Games_cover.jpg/220px-The_Hunger_Games_cover.jpg",
-                    CategoryId = 1
+                    CategoryId = 1,
+                    IsFeatured = true
                 },
                 new Product
                 {
@@ -86,7 +87,8 @@ namespace BlazorEcommerce.Server.Data
                     Title = "Mrtav 'ladan",
                     Description = "Centar radnje je mrtvi Deda kojega njegovi unuci, Kizo i Lemi, pokušavaju dovesti do Vršca u vlaku, a da nitko ne primjeti da je mrtav. Suvozači u vagonu su Limeni, diler koji nema srca pa ga zato zovu Limeni. Sa Limenim je i Ana, kćerka narkomanke koju je Limeni dobio kao zalog od narkomanke, baba čiji kofer će \"ubiti” dedu, Đura(ćelavi trgovački putnik), sitni lopov i narkoman, beogradska šminkerica Maja, cura kojoj se Limeni uvaljuje. Zaplet počinje kada na Dedu padne kofer, a suvozači misle da ga je to ubilo. Pošto je policija u vlaku, oni bacaju Dedu kroz prozor. I tu sada počinje potraga za Dedom. Traže ga njegovi unuci, ali i Limeni koji je putem pokupio curu iz vlaka i djevojčica. Limeni ga traži zbog toga jer mu je u vagonu ubacio paketić droge u džep, kada je dolazila policija. Dedu pronalazi Radovan na svojoj električnoj ogradi i misli kako je Dedu ubila struja, pokušava ga namjestiti na susjedovu žicu, ali susjed ga otkriva. Nakon toga oni se isto rješavaju Dede i skrivaju ga u Kletovu hladnjaču na benziskoj. Kada Kole otkriva leš on ga se također pokušava riješiti.",
                     ImageURL = "https://upload.wikimedia.org/wikipedia/sr/thumb/1/1f/Mrtav_ladan.jpg/250px-Mrtav_ladan.jpg",
-                    CategoryId = 2
+                    CategoryId = 2,
+                    IsFeatured = true
                 },
                 new Product
                 {
@@ -110,7 +112,8 @@ namespace BlazorEcommerce.Server.Data
                     Title = "Civilization VI",
                     Description = "Sid Meier's Civilization VI is a turn-based strategy 4X video game developed by Firaxis Games and published by 2K. The mobile and Nintendo Switch port was published by Aspyr Media. The latest entry into the Civilization series, it was released on Windows and macOS in October 2016, with later ports for Linux in February 2017, iOS in December 2017, Nintendo Switch in November 2018, PlayStation 4 and Xbox One in November 2019, and Android in 2020.",
                     ImageURL = "https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Civilization_VI_cover_art.jpg/220px-Civilization_VI_cover_art.jpg",
-                    CategoryId = 3
+                    CategoryId = 3,
+                    IsFeatured = true
                 },
                 new Product
                 {
