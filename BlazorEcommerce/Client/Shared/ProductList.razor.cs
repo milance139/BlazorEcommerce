@@ -30,11 +30,11 @@ namespace BlazorEcommerce.Client.Shared
             return $"Starting at €{minPrice}";
         }
 
-        private void ChangePage(int pageNumber)
+        private async Task ChangePage(int pageNumber)
         {
             requestModel.CurrentPage = pageNumber;
             requestModel.SearchText = ProductService.LastSearchText;
-            ProductService.SearchProducts(requestModel);
+            await ProductService.SearchProducts(requestModel);
         }
     }
 }

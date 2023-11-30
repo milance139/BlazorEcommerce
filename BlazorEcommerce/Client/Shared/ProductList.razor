@@ -48,7 +48,7 @@ else
                 @i
             </button>
         }
-        @if (ProductService.Paggination.CurrentPage != ProductService.Paggination.TotalPages)
+        @if (ProductService.Paggination.CurrentPage != ProductService.Paggination.TotalPages && ProductService.Paggination.TotalPages > 1)
         {
             <button class="btn btn-outline-info page-selection"
                     @onclick="() => ChangePage(ProductService.Paggination.CurrentPage + 1)">

@@ -1,5 +1,6 @@
 ﻿@page "/product/{id:int}"
 @inject IProductService ProductService
+@inject ICartService CartService
 
 <h3>ProductDetails</h3>
 
@@ -40,6 +41,9 @@ else
                     €@GetSelectedVariant().Price
                 </h4>
             }
+            <button class="btn btn-primary" @onclick="AddToCart">
+                <i class="oi oi-cart"></i>&ensp;&ensp;Add to cart
+            </button>
         </div>
     </div>
 }

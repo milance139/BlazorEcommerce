@@ -36,5 +36,17 @@ namespace BlazorEcommerce.Client.Pages
             var variant = product.Variants.FirstOrDefault(v => v.ProductTypeId == currentTypeId);
             return variant;
         }
+
+        private async Task AddToCart()
+        {
+            var productVariant = GetSelectedVariant();
+            var cartItem = new CartItem()
+            {
+                ProductId = productVariant.ProductId,
+                ProductTypeId = productVariant.ProductTypeId
+            };
+
+            await CartService.AddToCart(cartItem);
+        }
     }
 }
