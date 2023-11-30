@@ -1,7 +1,10 @@
-﻿namespace BlazorEcommerce.Client.Shared
+﻿using Microsoft.AspNetCore.Components;
+
+namespace BlazorEcommerce.Client.Shared
 {
     public partial class ProductList
     {
+        ProductSearchRequestModel requestModel = new ProductSearchRequestModel();
         protected override void OnInitialized()
         {
             ProductService.ProductsChanged += StateHasChanged;
@@ -25,6 +28,13 @@
             }
             decimal minPrice = variants.Min(v => v.Price);
             return $"Starting at €{minPrice}";
+        }
+
+        private void ChangePage(int pageNumber)
+        {
+            requestModel.CurrentPage = pageNumber;
+            requestModel.SearchText = ProductService.LastSearchText;
+            ProductService.SearchProducts(requestModel);
         }
     }
 }

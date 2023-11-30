@@ -1,5 +1,7 @@
 global using BlazorEcommerce.Shared;
 global using BlazorEcommerce.Shared.Models;
+global using BlazorEcommerce.Shared.Models.ResponseModels;
+global using BlazorEcommerce.Shared.Models.RequestModels;
 global using BlazorEcommerce.Shared.Models.Entities;
 global using Microsoft.EntityFrameworkCore;
 global using BlazorEcommerce.Server.Data;

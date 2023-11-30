@@ -99,11 +99,28 @@ namespace BlazorEcommerce.Server.Services.ProductService
             return new ServiceResponse<List<string>>() { Data = result };
         }
 
-        public async Task<ServiceResponse<List<Product>>> SearchProducts(string searchText)
+        public async Task<ServiceResponse<ProcutSearchResultResponseModel>> SearchProducts(ProductSearchRequestModel requestModel)
         {
-            var response = new ServiceResponse<List<Product>>
+            ProcutSearchResultResponseModel responseModel = new ProcutSearchResultResponseModel();
+
+            List<Product> foundProducts = await FindProductsBySearchText(requestModel.SearchText);
+
+            responseModel.TotalItems = foundProducts.Count();
+            responseModel.TotalPages = (int)Math.Ceiling(responseModel.TotalItems / (decimal)requestModel.PageSize);
+            responseModel.CurrentPage = requestModel.CurrentPage;
+
+            var products = await _context.Products
+                                .Where(p => p.Title.ToLower().Contains(requestModel.SearchText) || p.Description.ToLower().Contains(requestModel.SearchText))
+                                .Include(p => p.Variants)
+                                .Skip((requestModel.CurrentPage - 1) * requestModel.PageSize)
+                                .Take(requestModel.PageSize)
+                                .ToListAsync();
+
+            responseModel.Products = products;
+
+            var response = new ServiceResponse<ProcutSearchResultResponseModel>
             {
-                Data = await FindProductsBySearchText(searchText)
+                Data = responseModel
             };
 
             return response;

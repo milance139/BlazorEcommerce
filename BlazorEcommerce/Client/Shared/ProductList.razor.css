@@ -15,6 +15,16 @@
     text-align: center;
 }
 
+.page-selection {
+    margin-right: 15px;
+    margin-bottom: 30px;
+}
+
+.paggination {
+    display: flex;
+    justify-content: center;
+}
+
 @media (max-width: 1023.98px) {
     .media {
         flex-direction: column;
