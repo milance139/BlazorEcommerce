@@ -41,7 +41,7 @@ namespace BlazorEcommerce.Server.Controllers
         }
 
         [HttpPost("search/")]
-        public async Task<ActionResult<ServiceResponse<ProcutSearchResultResponseModel>>> SearchProducts(ProductSearchRequestModel requestModel)
+        public async Task<ActionResult<ServiceResponse<ProcutSearchResultResponse>>> SearchProducts(ProductSearchRequestModel requestModel)
         {
             var result = await _productService.SearchProducts(requestModel);
 

@@ -1,0 +1,32 @@
+﻿@page "/orders"
+@inject IOrderService OrderService
+
+<h3>Orders</h3>
+
+@if (orders == null)
+{
+    <span>Loading your orders...</span>
+}
+else if (orders.Count <= 0)
+{
+    <span>You have on orders</span>
+}
+else
+{
+    foreach (var order in orders)
+    {
+        <div class="container">
+            <div class="image-wrapper">
+                <img src="@order.ProductImageUrl" class="image" />
+            </div>
+            <div class="details">
+                <h4>@order.Product</h4>
+                <span>@order.OrderDate</span>
+                <a href="order/@order.Id">See details</a>
+            </div>
+            <div class="order-price">
+                €@order.TotalPrice
+            </div>
+        </div>
+    }
+}

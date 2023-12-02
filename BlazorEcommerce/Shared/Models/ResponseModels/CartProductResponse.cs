@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlazorEcommerce.Shared.Models.ResponseModels
 {
-    public class CartProductResponseModel
+    public class CartProductResponse
     {
         public int ProductId { get; set; }
         public string Title { get; set; } = string.Empty;

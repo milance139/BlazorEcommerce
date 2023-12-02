@@ -62,7 +62,7 @@ namespace BlazorEcommerce.Client.Services.ProductService
             if(result != null)
             {
                 var resultData = (await result.Content
-                    .ReadFromJsonAsync<ServiceResponse<ProcutSearchResultResponseModel>>()).Data;
+                    .ReadFromJsonAsync<ServiceResponse<ProcutSearchResultResponse>>()).Data;
  
                 if (resultData != null)
                 {

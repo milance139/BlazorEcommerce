@@ -5,41 +5,46 @@ namespace BlazorEcommerce.Client.Pages
 {
     public partial class Cart
     {
-        List<CartProductResponseModel> cartProducts = null;
+        List<CartProductResponse> cartProducts = null;
         string message = "Loading cart..";
+        bool orderPlaced = false;
 
         protected override async Task OnInitializedAsync()
         {
+            orderPlaced = false;
             await LoadCart();
         }
 
-        private async Task RemoveProductFromCart(int productId, int procutTypeId)
+        private async Task RemoveProductFromCart(int productId, int productTypeId)
         {
-            await CartService.RemoveFromCartItem(productId, procutTypeId);
+            await CartService.RemoveFromCartItem(productId, productTypeId);
             await LoadCart();
-
         }
 
         private async Task LoadCart()
         {
-            if ((await CartService.GetCartItems()).Count == 0)
+            await CartService.GetCartItemsCount();
+            cartProducts = await CartService.GetCartProducts();
+            if (cartProducts != null || cartProducts.Count == 0 )
             {
                 message = "Cart is empty";
-                cartProducts = new List<CartProductResponseModel> { };
-            }
-            else
-            {
-                cartProducts = await CartService.GetCartProducts();
             }
         }
 
-        private async Task UpdateQuantity(ChangeEventArgs e, CartProductResponseModel cartProduct)
+        private async Task UpdateQuantity(ChangeEventArgs e, CartProductResponse cartProduct)
         {
             cartProduct.Quantity = int.Parse(e.Value.ToString());
             if(cartProduct.Quantity < 1)
                 cartProduct.Quantity = 1;
 
             await CartService.UpdateQuantity(cartProduct);
+        }
+
+        private async Task PlaceOrder()
+        {
+            await OrderService.PlaceOrder();
+            await CartService.GetCartItemsCount();
+            orderPlaced = true;
         }
     }
 }

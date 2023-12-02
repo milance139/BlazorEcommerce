@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BlazorEcommerce.Shared.Models.ResponseModels
 {
-    public class ProcutSearchResultResponseModel : PagginationBaseModel
+    public class ProcutSearchResultResponse : PagginationBaseModel
     {
         public List<Product> Products { get; set; } = new List<Product>();
     }

@@ -99,9 +99,9 @@ namespace BlazorEcommerce.Server.Services.ProductService
             return new ServiceResponse<List<string>>() { Data = result };
         }
 
-        public async Task<ServiceResponse<ProcutSearchResultResponseModel>> SearchProducts(ProductSearchRequestModel requestModel)
+        public async Task<ServiceResponse<ProcutSearchResultResponse>> SearchProducts(ProductSearchRequestModel requestModel)
         {
-            ProcutSearchResultResponseModel responseModel = new ProcutSearchResultResponseModel();
+            ProcutSearchResultResponse responseModel = new ProcutSearchResultResponse();
 
             List<Product> foundProducts = await FindProductsBySearchText(requestModel.SearchText);
 
@@ -118,7 +118,7 @@ namespace BlazorEcommerce.Server.Services.ProductService
 
             responseModel.Products = products;
 
-            var response = new ServiceResponse<ProcutSearchResultResponseModel>
+            var response = new ServiceResponse<ProcutSearchResultResponse>
             {
                 Data = responseModel
             };

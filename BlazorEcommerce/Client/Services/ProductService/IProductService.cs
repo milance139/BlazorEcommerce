@@ -14,9 +14,7 @@ namespace BlazorEcommerce.Client.Services.ProductService
         #endregion
 
         Task GetProducts(string? categoryUrl = null);
-
         Task<ServiceResponse<Product>> GetProductById(int productId);
-
         Task SearchProducts(ProductSearchRequestModel requestModel);
         Task<List<string>> GetProductSearchSuggestions(string searchText);
     }

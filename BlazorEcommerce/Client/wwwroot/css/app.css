@@ -85,3 +85,7 @@ a, .btn-link {
     flex: 1;
 }
 
+.float-right {
+    float: right;
+}
+

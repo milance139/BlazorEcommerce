@@ -4,9 +4,10 @@
     {
         event Action OnChange;
         Task AddToCart(CartItem cartItem);
-        Task<List<CartItem>> GetCartItems();
-        Task<List<CartProductResponseModel>> GetCartProducts();
+        Task<List<CartProductResponse>> GetCartProducts();
         Task RemoveFromCartItem(int productId, int productTypeId);
-        Task UpdateQuantity(CartProductResponseModel cartProduct);
+        Task UpdateQuantity(CartProductResponse cartProduct);
+        Task StoreCartItems(bool emtpyLocalCart);
+        Task GetCartItemsCount();
     }
 }
