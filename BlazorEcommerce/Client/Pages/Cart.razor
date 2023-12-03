@@ -1,6 +1,7 @@
 ﻿@page "/cart"
 @inject ICartService CartService
 @inject IOrderService OrderService
+@inject NavigationManager NavigationManager
 
 <PageTitle>Shopping cart</PageTitle>
 
@@ -9,12 +10,6 @@
 @if (cartProducts == null || cartProducts.Count == 0)
 {
     <span>@message</span>
-}
-else if(orderPlaced)
-{
-    <span>Than you for your order.</span>
-    <br />
-    <span>Check your orders <a href="orders"> here </a></span>
 }
 else
 {
@@ -49,5 +44,5 @@ else
             Total price (@cartProducts.Count): €@cartProducts.Sum(p => p.Price * p.Quantity)
         </div>
     </div>
-    <button @onclick="PlaceOrder" class="btn alert-success float-right my-1">Place Order</button>
+    <button @onclick="PlaceOrder" class="btn alert-success float-right my-1">Checkout</button>
 }

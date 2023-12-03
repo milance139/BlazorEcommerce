@@ -30,6 +30,8 @@ namespace BlazorEcommerce.Client.Pages
                 await AuthenticationStateProvider.GetAuthenticationStateAsync();
                 await CartService.StoreCartItems(true);
                 await CartService.GetCartItemsCount();
+                if (returnUrl == "register")
+                    NavigationManager.NavigateTo("");
                 NavigationManager.NavigateTo(returnUrl);
             }
             else
