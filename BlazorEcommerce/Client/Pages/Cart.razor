@@ -1,6 +1,7 @@
 ﻿@page "/cart"
 @inject ICartService CartService
 @inject IOrderService OrderService
+@inject IAuthService AuthService
 @inject NavigationManager NavigationManager
 
 <PageTitle>Shopping cart</PageTitle>
@@ -44,5 +45,12 @@ else
             Total price (@cartProducts.Count): €@cartProducts.Sum(p => p.Price * p.Quantity)
         </div>
     </div>
+    @if (isAuthenticated)
+    {
+        <div>
+            <h5>Delivery address</h5>
+            <AddressForm/>
+        </div>
+    }
     <button @onclick="PlaceOrder" class="btn alert-success float-right my-1">Checkout</button>
 }

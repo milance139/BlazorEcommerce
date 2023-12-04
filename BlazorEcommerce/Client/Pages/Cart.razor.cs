@@ -7,9 +7,11 @@ namespace BlazorEcommerce.Client.Pages
     {
         List<CartProductResponse> cartProducts = null;
         string message = "Loading cart..";
+        bool isAuthenticated = false;
 
         protected override async Task OnInitializedAsync()
         {
+            isAuthenticated = await AuthService.IsUserAuthenticated();
             await LoadCart();
         }
 

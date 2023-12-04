@@ -14,5 +14,6 @@ namespace BlazorEcommerce.Shared.Models.Entities
         public byte[] PasswordSalt { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.Now;
         public string Role { get; set; } = "Customer";
+        public Address Address { get; set; }
     }
 }
