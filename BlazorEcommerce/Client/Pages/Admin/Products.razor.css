@@ -1,0 +1,10 @@
+﻿.img {
+    max-height: 100px;
+    max-width: 100px;
+}
+
+.btn-yellow {
+    color: white;
+    background-color: gold;
+    border-color: gold;
+}

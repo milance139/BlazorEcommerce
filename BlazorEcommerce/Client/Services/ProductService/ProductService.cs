@@ -1,5 +1,6 @@
 ﻿
 using System.Net.Http.Json;
+using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -17,8 +18,34 @@ namespace BlazorEcommerce.Client.Services.ProductService
         public string Message { get; set; } = "Loading products...";
         public string LastSearchText { get; set; } = string.Empty;
         public PagginationBaseModel Paggination { get; set; } = new PagginationBaseModel();
+        public List<Product> AdminProducts { get; set; }
 
         public event Action ProductsChanged;
+
+        public async Task<Product> CreateProduct(Product product)
+        {
+            var result = await _http.PostAsJsonAsync("api/Product", product);
+            var newProduct = (await result.Content.ReadFromJsonAsync<ServiceResponse<Product>>()).Data;
+            return newProduct;
+        }
+
+        public async Task DeleteProduct(Product product)
+        {
+            var result = await _http.DeleteAsync($"api/Product/{product.Id}");
+        }
+
+        public async Task GetAdminProducts()
+        {
+            var result = await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/Product/admin");
+
+            AdminProducts = result.Data;
+            Paggination.CurrentPage = 1;
+            Paggination.TotalPages = 0;
+
+            if(AdminProducts.Count == 0)
+                Message = "No products found.";
+
+        }
 
         public async Task<ServiceResponse<Product>> GetProductById(int productId)
         {
@@ -54,6 +81,12 @@ namespace BlazorEcommerce.Client.Services.ProductService
             return result.Data;
         }
 
+        public async Task<bool> PromoteProduct(Product product)
+        {
+            var result = await _http.PutAsJsonAsync("api/Product/promote/", product);
+            return (await result.Content.ReadFromJsonAsync<ServiceResponse<bool>>()).Data;
+        }
+
         public async Task SearchProducts(ProductSearchRequestModel requestModel)
         {
             var result = await _http.PostAsJsonAsync($"api/Product/search", requestModel);
@@ -62,7 +95,7 @@ namespace BlazorEcommerce.Client.Services.ProductService
             if(result != null)
             {
                 var resultData = (await result.Content
-                    .ReadFromJsonAsync<ServiceResponse<ProcutSearchResultResponse>>()).Data;
+                    .ReadFromJsonAsync<ServiceResponse<ProductSearchResultResponse>>()).Data;
  
                 if (resultData != null)
                 {
@@ -78,6 +111,12 @@ namespace BlazorEcommerce.Client.Services.ProductService
                 Message = "No products found";
 
             ProductsChanged.Invoke();
+        }
+
+        public async Task<Product> UpdateProduct(Product product)
+        {
+            var result = await _http.PutAsJsonAsync($"api/Product", product);
+            return (await result.Content.ReadFromJsonAsync<ServiceResponse<Product>>()).Data;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace BlazorEcommerce.Shared.Models.Entities
 {
     public class Product : DomainObject
     {
+        [Required]
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public string ImageURL { get; set; } = string.Empty;
@@ -16,5 +18,11 @@ namespace BlazorEcommerce.Shared.Models.Entities
         public int CategoryId { get; set; }
         public bool IsFeatured { get; set; } = false;
         public List<ProductVariant> Variants { get; set; } = new List<ProductVariant>();
+        public bool IsDeleted { get; set; } = false;
+        public bool IsVisible { get; set; } = true;
+        [NotMapped]
+        public bool Editing { get; set; } = false;
+        [NotMapped]
+        public bool IsNew { get; set; } = false;
     }
 }
