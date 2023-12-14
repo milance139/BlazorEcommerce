@@ -30,30 +30,5 @@ else
             </li>
         }
     </ul>
-    <div class="paggination">
-        @if (ProductService.Paggination.CurrentPage != 1)
-        {
-            <button class="btn btn-outline-info page-selection"
-                    @onclick="() => ChangePage(ProductService.Paggination.CurrentPage - 1)">
-                Previous
-            </button>
-        }
-        @for (int i = 1; i <= ProductService.Paggination.TotalPages; i++)
-        {
-            int temp = i;
-            <button class="btn
-                        @(i == ProductService.Paggination.CurrentPage ? "btn-info" : "btn-outline-info")
-                        page-selection"
-                        @onclick="() => ChangePage(temp)">
-                @i
-            </button>
-        }
-        @if (ProductService.Paggination.CurrentPage != ProductService.Paggination.TotalPages && ProductService.Paggination.TotalPages > 1)
-        {
-            <button class="btn btn-outline-info page-selection"
-                    @onclick="() => ChangePage(ProductService.Paggination.CurrentPage + 1)">
-                Next
-            </button>
-        }
-    </div>
+    <Pagginator Paggination="ProductService.Paggination" OnPageChange="ChangePage"></Pagginator>
 }

@@ -1,0 +1,26 @@
+﻿<div class="paggination">
+    @if (Paggination.CurrentPage != 1)
+    {
+        <button class="btn btn-outline-info page-selection"
+                @onclick="() => OnPageChange?.Invoke(CurrentPage - 1)">
+            Previous
+        </button>
+    }
+    @for (int i = 1; i <= Paggination.TotalPages; i++)
+    {
+        int temp = i;
+        <button class="btn
+                        @(i == Paggination.CurrentPage ? "btn-info" : "btn-outline-info")
+                        page-selection"
+                @onclick="() => OnPageChange?.Invoke(temp)">
+            @i
+        </button>
+    }
+    @if (Paggination.CurrentPage != Paggination.TotalPages && Paggination.TotalPages > 1)
+    {
+        <button class="btn btn-outline-info page-selection"
+                @onclick="() => OnPageChange?.Invoke(CurrentPage + 1)">
+            Next
+        </button>
+    }
+</div>

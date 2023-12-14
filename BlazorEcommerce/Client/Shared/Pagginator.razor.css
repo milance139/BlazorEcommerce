@@ -1,0 +1,9 @@
+﻿.paggination {
+    display: flex;
+    justify-content: center;
+}
+
+.page-selection {
+    margin-right: 15px;
+    margin-bottom: 30px;
+}
