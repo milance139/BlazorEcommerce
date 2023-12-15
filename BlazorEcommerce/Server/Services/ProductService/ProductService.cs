@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Immutable;
+
 namespace BlazorEcommerce.Server.Services.ProductService
 {
     public class ProductService : IProductService
@@ -51,6 +53,7 @@ namespace BlazorEcommerce.Server.Services.ProductService
                     .Where(p => !p.IsDeleted)
                     .Include(p => p.Variants.Where(v => !v.IsDeleted))
                     .ThenInclude(v => v.ProductType)
+                    .Include(p => p.Images)
                     .ToListAsync()
             };
 
@@ -64,6 +67,7 @@ namespace BlazorEcommerce.Server.Services.ProductService
                 Data = await _context.Products
                    .Where(p => p.IsFeatured && p.IsVisible && !p.IsDeleted)
                    .Include(p => p.Variants.Where(v => v.IsVisible && !v.IsDeleted))
+                    .Include(p => p.Images)
                    .ToListAsync()
             };
 
@@ -80,6 +84,7 @@ namespace BlazorEcommerce.Server.Services.ProductService
                 product = await _context.Products
                     .Include(p => p.Variants.Where(v =>!v.IsDeleted))
                     .ThenInclude(v => v.ProductType)
+                    .Include(p => p.Images)
                     .FirstOrDefaultAsync(p => p.Id == productId && !p.IsDeleted);
             }
             else
@@ -87,6 +92,7 @@ namespace BlazorEcommerce.Server.Services.ProductService
                 product = await _context.Products
                     .Include(p => p.Variants.Where(v => v.IsVisible && !v.IsDeleted))
                     .ThenInclude(v => v.ProductType)
+                    .Include(p => p.Images)
                     .FirstOrDefaultAsync(p => p.Id == productId && p.IsVisible && !p.IsDeleted);
             }
 
@@ -107,7 +113,9 @@ namespace BlazorEcommerce.Server.Services.ProductService
             {
                 Data = await _context.Products
                     .Where(p => p.IsVisible && !p.IsDeleted)
-                    .Include(p => p.Variants.Where(v => v.IsVisible && !v.IsDeleted)).ToListAsync()
+                    .Include(p => p.Variants.Where(v => v.IsVisible && !v.IsDeleted))
+                    .Include(p => p.Images)
+                    .ToListAsync()
             };
 
             return response;
@@ -121,6 +129,7 @@ namespace BlazorEcommerce.Server.Services.ProductService
                     .Where(p => p.Category.Url.ToLower().Equals(categoryUrl.ToLower()) &&
                     p.IsVisible && !p.IsDeleted)
                     .Include(p => p.Variants.Where(v => v.IsVisible && !v.IsDeleted))
+                    .Include(p => p.Images)
                     .ToListAsync()
             };
 
@@ -210,7 +219,9 @@ namespace BlazorEcommerce.Server.Services.ProductService
 
         public async Task<ServiceResponse<Product>> UpdateProduct(Product product)
         {
-            var dbProduct = await _context.Products.FindAsync(product.Id);
+            var dbProduct = await _context.Products
+                                            .Include(p => p.Images)
+                                            .FirstOrDefaultAsync(p => p.Id == product.Id);
             if (dbProduct == null)
             {
                 return new ServiceResponse<Product>
@@ -226,6 +237,11 @@ namespace BlazorEcommerce.Server.Services.ProductService
             dbProduct.CategoryId = product.CategoryId;
             dbProduct.IsVisible = product.IsVisible;
             dbProduct.IsFeatured = product.IsFeatured;
+
+            var productImages = dbProduct.Images;
+            _context.Images.RemoveRange(productImages);
+
+            dbProduct.Images = product.Images;
 
             foreach (var variant in product.Variants)
             {
@@ -260,6 +276,7 @@ namespace BlazorEcommerce.Server.Services.ProductService
                                     p.Description.ToLower().Contains(searchText) &&
                                     p.IsVisible && !p.IsDeleted)
                                 .Include(p => p.Variants.Where(v => v.IsVisible && !v.IsDeleted))
+                                .Include(p => p.Images)
                                 .ToListAsync();
         }
     }

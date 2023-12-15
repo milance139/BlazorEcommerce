@@ -31,7 +31,14 @@ else
             <Virtualize Items="ProductService.AdminProducts" Context="product">
                 <tr>
                     <td>
-                        <img src="@product.ImageURL" class="img"/>
+                        @if (!string.IsNullOrEmpty(product.ImageURL))
+                        {
+                            <img src="@product.ImageURL" class="img"/>
+                        }
+                        else if(product.Images.Count > 0)
+                        {
+                            <img src="@product.Images[0].Data" class="img"/>
+                        }
                     </td>
                     <td>
                         @product.Title

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 
 namespace BlazorEcommerce.Client.Pages.Admin
@@ -84,6 +85,28 @@ namespace BlazorEcommerce.Client.Pages.Admin
             {
                 await ProductService.DeleteProduct(product);
                 NavigationManager.NavigateTo("admin/products");
+            }
+        }
+
+        async Task OnFileChange(InputFileChangeEventArgs e)
+        {
+            var format = "image/png";
+            foreach (var image in e.GetMultipleFiles(10))
+            {
+                var resizedImage = await image.RequestImageFileAsync(format, 200, 200);
+                var buffer = new byte[resizedImage.Size];
+                await resizedImage.OpenReadStream().ReadAsync(buffer);
+                var imageData = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
+                product.Images.Add(new Image { Data = imageData });
+            }
+        }
+
+        void RemoveImage(int imageId)
+        {
+            var image = product.Images.FirstOrDefault(i => i.Id == imageId);
+            if (image != null)
+            {
+                product.Images.Remove(image);
             }
         }
     }
